@@ -9,15 +9,6 @@
             <div class="authors">
                 <div class="d-flex">
                     <h3>Authors:</h3>
-                    <form class="row m-0 p-0 shadow-none" style="width: 100%;" method="post" action="/add-author">
-                        <div class="col-sm-6">
-                            <input type="text" placeholder="Author name" class="form-control" name="addauthorname"
-                                id="addauthorname" required>
-                        </div>
-                        <div class="col-sm-6">
-                            <button type="submit" class="btn btn-primary">Add Author</button>
-                        </div>
-                    </form>
                 </div>
                 <ol class="ps-3 list-group-numbered">
                     <% for (let author of authors) { %>

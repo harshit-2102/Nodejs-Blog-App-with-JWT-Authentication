@@ -7,7 +7,6 @@ const router = Router();
 
 router.get('/', blogController.get_Blogs);
 router.get('/add-record', requireAuth, blogController.get_addRecord);
-router.post('/add-author', requireAuth, blogController.post_addAuthor);
 router.post('/add-category', requireAuth, blogController.post_addCategory);
 router.post('/add-blog', requireAuth, blogController.post_addBlog);
 router.get('/edit-blog/:blogId', requireAuth, blogController.get_editBlog);

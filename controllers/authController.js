@@ -5,11 +5,11 @@ const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = { email: '', password: '' };
 
-    if(err.message === 'Incorrect Email'){
+    if (err.message === 'Incorrect Email') {
         errors.email = 'That email is not registered';
     }
 
-    if(err.message === 'Incorrect Password'){
+    if (err.message === 'Incorrect Password') {
         errors.password = 'Incorrect Password';
     }
 
@@ -51,13 +51,21 @@ module.exports.login_get = (req, res) => {
 }
 
 module.exports.signup_post = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, author } = req.body;
 
     try {
-        const user = await User.create({ email, password });
-        const token = createToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.status(201).json({ user: user._id });
+        const user = new User({
+            name: author,
+            email: email,
+            password: password
+        });
+        user.save()
+            .then((user) => {
+                const token = createToken(user._id);
+                res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+                res.status(201).json({ user: user._id });
+                res.render("home");
+            });
     }
     catch (err) {
         const errors = handleErrors(err);
@@ -81,5 +89,5 @@ module.exports.login_post = async (req, res) => {
 
 module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });
-     res.redirect('/');
+    res.redirect('/');
 }

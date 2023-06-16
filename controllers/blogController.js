@@ -1,6 +1,7 @@
-const Author = require('../models/Author');
 const Category = require('../models/Category');
 const Blog = require('../models/Blog');
+const User = require('../models/User');
+
 
 
 module.exports.get_Blogs = async (req, res) => {
@@ -19,7 +20,7 @@ module.exports.get_Blogs = async (req, res) => {
 }
 
 module.exports.get_addRecord = async (req, res) => {
-    const authors = await Author.find()
+    const authors = await User.find()
         .then((authors) => {
             return authors;
         }).catch((err) => {
@@ -92,25 +93,6 @@ module.exports.post_addBlog = (req, res) => {
         });
 }
 
-module.exports.post_addAuthor = (req, res, next) => {
-    const { addauthorname } = req.body;
-
-    const author = new Author({
-        name: addauthorname
-    });
-    author.save()
-        .then((result) => {
-            console.log(result);
-            res.redirect('/add-record');
-        }).catch((err) => {
-            res.redirect('/add-record');
-            // console.log(err.code);
-            if (err.code == 11000) {
-                console.log("Add unique Author");
-            }
-        });
-}
-
 module.exports.post_addCategory = (req, res) => {
     const { addcategory } = req.body;
     console.log(addcategory);
@@ -133,7 +115,7 @@ module.exports.post_addCategory = (req, res) => {
 exports.get_editBlog = async (req, res) => {
     const blogId = req.params.blogId;
 
-    const authors = await Author.find()
+    const authors = await User.find()
         .then((authors) => {
             return authors;
         }).catch((err) => {

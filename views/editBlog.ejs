@@ -1,0 +1,47 @@
+<%- include('partials/header'); -%>
+
+    <div class="container">
+        <form class="row m-0 g-3" method="post" action="/edit-blog">
+            <div class="col-md-6">
+                <label for="inputState" class="form-label">Author Name</label>
+                <select id="inputState" class="form-select" name="author" required>
+                    <option value="<%= blog.author %>" selected hidden>
+                        <%= blog.author %>
+                    </option>
+                    <% for (let author of authors) { %>
+                        <option value="<%= author.name %>">
+                            <%= author.name %>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Title</label>
+                <input type="text" value="<%= blog.title %>" class="form-control" name="title" id="title" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" name="description" id="description" cols="46" rows="5"
+                    value="<%= blog.description %>" required></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="inputState" class="form-label">Category</label>
+                <select id="inputState" class="form-select" name="category" required>
+                    <option value="<%= blog.category %>" selected hidden>
+                        <%= blog.category %>
+                    </option>
+                    <% for (let category of categories) { %>
+                        <option value="<%= category.category %>">
+                            <%= category.category %>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+            <input type="hidden" value="<%= blog._id %>" name="blogId">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Edit Blog</button>
+            </div>
+        </form>
+    </div>
+
+    <%- include('partials/footer'); -%>

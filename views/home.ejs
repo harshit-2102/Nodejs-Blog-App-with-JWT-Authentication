@@ -1,0 +1,30 @@
+<%- include('partials/header'); -%>
+
+
+  <div class="container">
+    <div class="row">
+      <% for (let blog of blogs) { %>
+        <div class="p-3 m-0 col-md-6">
+          <div class="card position-relative">
+            <div class="position-absolute bg-dark text-light p-2 fs-5 fw-semibold" style="top: 24.5rem; left: 1rem;">
+              <%= blog.author %>
+            </div>
+            <div class="position-absolute bg-warning text-dark p-2 fs-5 fw-semibold" style="top: 24.5rem; right: 1rem;">
+              <%= blog.category %>
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+              class="card-img-top img-fluid" alt="...">
+            <div class="card-body mt-3">
+              <p class="card-text"><%= blog.createdAt %></p>
+              <h3 class="card-title fw-semibold"><%= blog.title %></h3>
+              <p class="card-text"><%= blog.description %></p>
+            </div>
+          </div>
+        </div>
+        <% } %>
+    </div>
+  </div>
+
+
+  <%- include('partials/footer'); -%>

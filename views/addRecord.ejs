@@ -1,0 +1,95 @@
+<%- include('partials/header'); -%>
+
+
+    <div class="row d-flex m-0">
+        <div class="col-md-7 ps-5">
+            <%- include('createBlog'); -%>
+        </div>
+        <div class="col-md-5 m-0 ps-5">
+            <div class="authors">
+                <div class="d-flex">
+                    <h3>Authors:</h3>
+                    <form class="row m-0 p-0 shadow-none" style="width: 100%;" method="post" action="/add-author">
+                        <div class="col-sm-6">
+                            <input type="text" placeholder="Author name" class="form-control" name="addauthorname"
+                                id="addauthorname" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary">Add Author</button>
+                        </div>
+                    </form>
+                </div>
+                <ol class="ps-3 list-group-numbered">
+                    <% for (let author of authors) { %>
+                        <li class="list-group-item">
+                            <a href="/add-record?author=<%= author.name %>" class="nav-link d-inline"><%= author.name %></a>
+                        </li>
+                        <% } %>
+                </ol>
+            </div>
+            <div class="categories">
+                <div class="d-flex">
+                    <h3>Categories:</h3>
+                    <form class="row m-0 p-0 shadow-none" style="width: 100%;" method="post" action="/add-category">
+                        <div class="col-sm-6">
+                            <input type="text" placeholder="Add category" class="form-control" name="addcategory"
+                                id="addcategory" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary">Add Category</button>
+                        </div>
+                    </form>
+                </div>
+                <ol class="ps-3 list-group-numbered">
+                    <% for (let category of categories) { %>
+                        <li class="list-group-item">
+                            <a href="/add-record?category=<%= category.category %>" class="nav-link d-inline"><%= category.category %></a>
+                        </li>
+                        <% } %>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container border-top pt-5 mt-5 border-2">
+        <div class="row">
+            <% for (let blog of blogs) { %>
+                <div class="p-3 m-0 col-md-6">
+                    <div class="card position-relative">
+                        <div class="position-absolute bg-dark text-light p-2 fs-5 fw-semibold"
+                            style="top: 24.5rem; left: 1rem;">
+                            <%= blog.author %>
+                        </div>
+                        <div class="position-absolute bg-warning text-dark p-2 fs-5 fw-semibold"
+                            style="top: 24.5rem; right: 1rem;">
+                            <%= blog.category %>
+                        </div>
+
+                        <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                            class="card-img-top img-fluid" alt="...">
+                        <div class="card-body mt-3 position-relative">
+                            <p class="card-text">
+                                <%= blog.createdAt %>
+                            </p>
+                            <h3 class="card-title fw-semibold">
+                                <%= blog.title %>
+                            </h3>
+                            <p class="card-text">
+                                <%= blog.description %>
+                            </p>
+                            <div class="position-absolute" style="bottom: 1rem; right: 1rem;">
+                                <a href="/edit-blog/<%= blog._id %>" class="btn">Edit</a>
+                                <form action="/delete-blog" method="POST" class="btn p-0 m-0 border-0 shadow-none" style="width: 65;">
+                                    <input type="hidden" value="<%= blog._id %>" name="blogId" class="m-0 p-0">
+                                    <button class="btn m-0 p-0" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+    </div>
+
+    <%- include('partials/footer'); -%>
